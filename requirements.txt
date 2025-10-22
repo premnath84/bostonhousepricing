@@ -117,3 +117,5 @@ widgetsnbextension==4.0.14
 zipp==3.23.0
 
 # ===== Web App Dependencies =======
+flask==2.3.3
+Werkzeug==2.3.7
