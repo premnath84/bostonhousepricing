@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housing Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow p-6">
+        <h1 class="text-2xl font-bold text-center mb-6">Housing Data</h1>
+        
+        <form id="housingForm" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div><label class="block text-sm">CRIM</label><input type="number" name="crim" value="0.00632" step="0.00001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">ZN</label><input type="number" name="zn" value="18" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">INDUS</label><input type="number" name="indus" value="2.31" step="0.01" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">CHAS</label><select name="chas" class="w-full border p-2 rounded"><option value="0">No</option><option value="1">Yes</option></select></div>
+                <div><label class="block text-sm">NOX</label><input type="number" name="nox" value="0.538" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">RM</label><input type="number" name="rm" value="6.575" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">AGE</label><input type="number" name="age" value="65.2" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">DIS</label><input type="number" name="dis" value="4.09" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">RAD</label><input type="number" name="rad" value="1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">TAX</label><input type="number" name="tax" value="296" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">PTRATIO</label><input type="number" name="ptratio" value="15.3" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">B</label><input type="number" name="b" value="396.9" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">LSTAT</label><input type="number" name="lstat" value="4.98" step="0.01" class="w-full border p-2 rounded" required></div>
+            </div>
+            
+            <div class="flex gap-2 pt-4">
+                <button type="submit" class="flex-1 bg-blue-500 text-white p-2 rounded">Submit</button>
+                <button type="reset" class="flex-1 bg-gray-200 p-2 rounded">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // capture form data
+        document.getElementById('housingForm').addEventListener('submit', async e => {
+            e.preventDefault();
+
+            // Plain JavaScript object (dictionary) is created 
+            const data = Object.fromEntries(new FormData(e.target));
+            console.log({data});
+            alert('Data submitted! Check console for details.');
+
+       
+        try{
+            // send form data
+            const response = await fetch('/predict_api3', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            // receive respnose from API
+            const result = await response.json();
+
+            // // Result output 1 - on screen
+            if (result.prediction) {
+                // Display the prediction on the page
+                document.getElementById('predictionResult').innerHTML = 
+                    `House price prediction: ${result.prediction}`;
+            } else {
+                alert('Error in prediction');
+            }
+
+
+            // // Result output 2 - on screen
+            if (result.prediction) {
+                const predictionDiv = document.createElement('div');
+                predictionDiv.className = 'prediction-result p-4 bg-blue-50 rounded-lg shadow-md mt-4 text-blue-800 font-semibold';
+                predictionDiv.innerHTML = `
+                    <p>🏡 <strong>Predicted House Price:</strong> $${result.prediction.toFixed(2)}</p>
+                `;
+
+                // Remove old prediction if exists
+                const oldPrediction = document.querySelector('.prediction-result');
+                if (oldPrediction) oldPrediction.remove();
+
+                // Insert new prediction after the form
+                document.querySelector('form').after(predictionDiv);
+            }
+
+
+            // // Result output 3 - on msg popup
+            if (result.prediction) {
+                // Simple, clean, and effective
+                alert(`🏠 House Price Prediction: $${result.prediction.toLocaleString()}`);
+            } else {
+                alert('❌ Prediction failed. Please check your inputs.');
+            }
+
+
+        } catch (error){
+            console.error('Error:', error);
+            alert ('Error submissing data');
+
+        }
+
+        });
+    </script>
+
+<!-- Add a div to display the prediction result -->
+<div id="predictionResult"></div>
+</body>
+</html>

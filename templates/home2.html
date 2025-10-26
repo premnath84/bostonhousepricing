@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housing Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow p-6">
+        <h1 class="text-2xl font-bold text-center mb-6">Housing Data</h1>
+        
+        <form id="housingForm" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div><label class="block text-sm">CRIM</label><input type="number" name="crim" value="0.00632" step="0.00001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">ZN</label><input type="number" name="zn" value="18" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">INDUS</label><input type="number" name="indus" value="2.31" step="0.01" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">CHAS</label><select name="chas" class="w-full border p-2 rounded"><option value="0">No</option><option value="1">Yes</option></select></div>
+                <div><label class="block text-sm">NOX</label><input type="number" name="nox" value="0.538" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">RM</label><input type="number" name="rm" value="6.575" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">AGE</label><input type="number" name="age" value="65.2" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">DIS</label><input type="number" name="dis" value="4.09" step="0.001" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">RAD</label><input type="number" name="rad" value="1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">TAX</label><input type="number" name="tax" value="296" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">PTRATIO</label><input type="number" name="ptratio" value="15.3" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">B</label><input type="number" name="b" value="396.9" step="0.1" class="w-full border p-2 rounded" required></div>
+                <div><label class="block text-sm">LSTAT</label><input type="number" name="lstat" value="4.98" step="0.01" class="w-full border p-2 rounded" required></div>
+            </div>
+            
+            <div class="flex gap-2 pt-4">
+                <button type="submit" class="flex-1 bg-blue-500 text-white p-2 rounded">Submit</button>
+                <button type="reset" class="flex-1 bg-gray-200 p-2 rounded">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // capture form data
+        document.getElementById('housingForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            try {
+                // send form data
+                const response = await fetch('/predict_api2', {
+                    method: 'POST',
+                    body: formData  // Send as FormData instead of JSON
+                });
+                
+                const result = await response.json();
+             
+                // Display the prediction on the page
+                const predictionDiv = document.createElement('div');
+                predictionDiv.className = 'mt-4 p-4 bg-green-100 border border-green-400 rounded';
+                predictionDiv.textContent = `The House price prediction is ${result.prediction}`;
+                
+                // Remove old prediction if exists
+                const oldPrediction = document.querySelector('.prediction-result');
+                if (oldPrediction) oldPrediction.remove();
+                
+                // place the prediction div after form object
+                predictionDiv.classList.add('prediction-result');
+                document.querySelector('form').after(predictionDiv);
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
