@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Web App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #ffd166;
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffd166, #ff9e6d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .page-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ffd166;
+        }
+
+        .page-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .page-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1, .hero p, .page-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .page-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .page-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .page-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .page-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .page-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>YourApp</span>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Boston House Price Prediction</h1>
+            <p>A sleek and modern prediction app</p>
+            
+            <div class="page-grid">
+                <div class="page-card" onclick="navigateTo('form1')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 1</h3>
+                    <p>View Form 1</p>
+                </div>
+                   <div class="page-card" onclick="navigateTo('form1a')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 1a</h3>
+                    <p>View Form 1a</p>
+                </div>
+                    <div class="page-card" onclick="navigateTo('form2')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 2</h3>
+                    <p>View Form 2</p>
+                </div>
+                    <div class="page-card" onclick="navigateTo('form3')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 3</h3>
+                    <p>View Form 3</p>
+                </div>
+                    <div class="page-card" onclick="navigateTo('form4')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 4</h3>
+                    <p>View Form 4</p>
+                </div>
+                    <div class="page-card" onclick="navigateTo('form5')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h3>Prediction Form 5</h3>
+                    <p>View Form 5</p>
+        
+       
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Your Web App. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    // Navigation function - replace with your actual page URLs
+    function navigateTo(page) {
+        // Define your page URLs
+        // If pages are rendered by api specify api without '/', browser will add this automatically
+        const pageRoutes = {
+            // form1: 'home.html',
+            form1: 'form_api',
+            form1a: 'form_api1a',
+            form2: 'form_api2',
+            form3: 'form_api3',
+            form4: 'form_api4',
+            form5: 'form_api5'
+       
+        };
+
+        // Check if page exists in our routes
+        if (pageRoutes[page]) {
+            // Add loading indicator
+            document.body.style.opacity = '0.7';
+            document.body.style.cursor = 'wait';
+            
+            // Simulate loading delay for better UX
+            setTimeout(() => {
+                window.location.href = pageRoutes[page];
+            }, 300);
+        } else {
+            console.error(`Page "${page}" not found in routes`);
+            alert(`Page "${page}" not found!`);
+        }
+    }
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', function(event) {
+        // Number keys 1-5 for quick navigation
+        const keyMap = {
+            '1': 'form1',
+            '2': 'form1a', 
+            '3': 'form2',
+            '4': 'form3',
+            '5': 'form4',
+            '6': 'form5'
+        };
+
+        if (keyMap[event.key]) {
+            navigateTo(keyMap[event.key]);
+        }
+    });
+
+    // Add click listeners to all page cards for better accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+        const pageCards = document.querySelectorAll('.page-card');
+        
+        pageCards.forEach(card => {
+            // Add keyboard accessibility
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-pressed', 'false');
+            
+            // Enter key support
+            card.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    const pageName = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    navigateTo(pageName);
+                }
+            });
+        });
+    });
+
+    // Optional: Add page transition animations
+    function fadeOutPage() {
+        document.body.style.transition = 'opacity 0.3s ease';
+        document.body.style.opacity = '0';
+    }
+
+    // Add beforeunload event for smooth transitions
+    window.addEventListener('beforeunload', fadeOutPage);
+</script>
+</body>
+</html>

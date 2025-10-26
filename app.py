@@ -13,12 +13,12 @@ scaler = pickle.load(open('scaler.pkl', 'rb'))
 ## Crete routes for app
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home_main.html')
 
 
 # For api testing using Postman
-@app.route ('/predict_api', methods = ['POST'])
-def predict_api():
+@app.route ('/predict_api_test', methods = ['POST'])
+def predict_api_test():
     data = request.json ['data']
     # data = request.json
     # print(data)
@@ -32,9 +32,12 @@ def predict_api():
     return jsonify(output[0])
 
 # From 1 - as per home.html
+@app.route('/form_api')
+def form_api():
+    return render_template('home.html')
 # This api gets opened when form in home.html is submitted
-@app.route('/predict', methods = ['POST'])
-def predict():
+@app.route('/predict_api', methods = ['POST'])
+def predict_api():
 
     # print("raw form values:")
     # print(request.form.values())
