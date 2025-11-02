@@ -1,0 +1,37 @@
+
+# Workflow name
+name: Deploy to Railway
+
+# Run workflow on every push to main branch
+on:
+  push:
+    branches: [main]
+
+
+# Workflow jobs
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # check out repository 
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      ### ⬇ RAILWAY OFFICIAL ACTION ⬇ ###
+
+      # configures Railway CLI
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+
+      # Log in to Railway
+      - name: Log in to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway login --token $RAILWAY_TOKEN
+
+      - name: Deploy Docker container to Railway
+        run: railway up --service vivacious-embrace #Flask App
+ 
+
+      ### ⬆ RAILWAY OFFICIAL ACTION ⬆ ###
