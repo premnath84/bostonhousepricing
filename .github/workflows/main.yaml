@@ -41,6 +41,9 @@ jobs:
           npm install -g @railway/cli@latest
           railway --version  # Debug: confirm version
       
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
       # Step 5: Deploy the application to Railway
       - name: Deploy to Railway
         env:
@@ -69,6 +72,12 @@ jobs:
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           # railway link --project_id $RAILWAY_PROJECT_ID
           # railway link $RAILWAY_PROJECT_ID
+
+          # 1. Get the project ID from the token (auto-detects)
+          PROJECT_ID=$(railway project --json | jq -r '.id')
+          
+          # 2. Link the project (required for --service in CI)
+          railway link $PROJECT_ID
           
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
