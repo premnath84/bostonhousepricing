@@ -67,7 +67,8 @@ jobs:
           
           # Link this deployment to your specific Railway project
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          railway link --project_id $RAILWAY_PROJECT_ID
+          # railway link --project_id $RAILWAY_PROJECT_ID
+          railway link $RAILWAY_PROJECT_ID
           
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
