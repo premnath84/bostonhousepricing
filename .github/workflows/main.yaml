@@ -35,7 +35,9 @@ jobs:
       
       # Step 4: Install Railway CLI to interact with Railway platform
       - name: Install Railway CLI
-        run: npm install -g @railway/cli
+        run: |
+          npm install -g @railway/cli@latest
+          railway --version  # Debug: confirm version
       
       # Step 5: Deploy the application to Railway
       - name: Deploy to Railway
