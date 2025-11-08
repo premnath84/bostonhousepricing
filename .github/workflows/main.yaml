@@ -1,43 +1,54 @@
+# GitHub Actions workflow for automated Docker build and Railway deployment
 name: Build and Deploy to Railway
 
+# Trigger: Run this workflow when code is pushed to the main branch
 on:
   push:
     branches: [main]
 
 jobs:
   build-and-deploy:
+    # Use the latest Ubuntu runner provided by GitHub
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Build Docker image
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        file: ./Dockerfile
-        push: false
-        tags: my-app:latest
-        load: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-
-    - name: Install Railway CLI
-      run: npm install -g @railway/cli
-
-    - name: Deploy to Railway
-      env:
-        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      run: |
-        # Login to Railway
-        railway login --token $RAILWAY_TOKEN
-        
-        # Link to your specific project
-        railway link ${{ secrets.RAILWAY_PROJECT_ID }}
-        
-        # Deploy the current directory (which has the Dockerfile)
-        railway up --detach
+      # Step 1: Clone the repository code to the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Step 2: Set up Docker Buildx for advanced Docker build capabilities
+      # Buildx enables features like multi-platform builds and caching
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      # Step 3: Build the Docker image from the Dockerfile
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .  # Build context is the current directory
+          file: ./Dockerfile  # Path to the Dockerfile
+          push: false  # Don't push to a registry (Railway will build it)
+          tags: my-app:latest  # Tag the image for local reference
+          load: true  # Load the image into Docker daemon
+          cache-from: type=gha  # Use GitHub Actions cache for faster builds
+          cache-to: type=gha,mode=max  # Save build cache for future runs
+      
+      # Step 4: Install Railway CLI to interact with Railway platform
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      
+      # Step 5: Deploy the application to Railway
+      - name: Deploy to Railway
+        env:
+          # Use Railway token stored in GitHub repository secrets
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          # Authenticate with Railway using the API token
+          railway login --token $RAILWAY_TOKEN
+          
+          # Link this deployment to your specific Railway project
+          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+          
+          # Deploy the application (Railway will use the Dockerfile)
+          # --detach flag runs the deployment without blocking
+          railway up --detach
