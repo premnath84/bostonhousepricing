@@ -53,8 +53,8 @@ jobs:
           # Authenticate using token via environment variable
           export RAILWAY_TOKEN=$RAILWAY_TOKEN
           
-          # Added this line to confirm authentication
-          railway whoami
+          # Added this line to confirm authentication - dropped as this requires 'railway login'
+          # railway whoami
           
           # Link this deployment to your specific Railway project
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
