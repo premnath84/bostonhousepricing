@@ -47,6 +47,10 @@ jobs:
           RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
 
         run: |
+          # for debug - disable in production
+          echo "Token: $RAILWAY_TOKEN"
+
+
           # Authenticate with Railway using the API token
           # railway login --token $RAILWAY_TOKEN
 
