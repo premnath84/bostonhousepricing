@@ -240,6 +240,7 @@ def predict_api5():
 #     app.run (debug=True)
 
 #------------------------------------
+# Disable this if deployment is done directly github repo and not using Dockerimage
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
 
