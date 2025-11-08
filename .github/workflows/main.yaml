@@ -48,8 +48,11 @@ jobs:
 
         run: |
           # Authenticate with Railway using the API token
-          railway login --token $RAILWAY_TOKEN
+          # railway login --token $RAILWAY_TOKEN
 
+          # Authenticate using token via environment variable
+          export RAILWAY_TOKEN=$RAILWAY_TOKEN
+          
           # Added this line to confirm authentication
           railway whoami
           
