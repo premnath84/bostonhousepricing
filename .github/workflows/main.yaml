@@ -15,6 +15,8 @@ jobs:
       # Step 1: Clone the repository code to the runner
       - name: Checkout code
         uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0 # ensures .git folder exists
       
       # Step 2: Set up Docker Buildx for advanced Docker build capabilities
       # Buildx enables features like multi-platform builds and caching
@@ -51,7 +53,7 @@ jobs:
         run: |
           # for debug - disable in production
           echo "Token: $RAILWAY_TOKEN"
-          echo "Project ID: $RAILWAY_PROJECT_ID"
+          # echo "Project ID: $RAILWAY_PROJECT_ID"
           echo "Service ID: $RAILWAY_SERVICE_ID"
 
           # Authenticate with Railway using the API token
