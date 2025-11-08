@@ -47,7 +47,7 @@ jobs:
           # Use Railway token stored in GitHub repository secrets
           # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
-          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
           RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
 
         run: |
@@ -68,9 +68,9 @@ jobs:
           # Link this deployment to your specific Railway project
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           # railway link --project_id $RAILWAY_PROJECT_ID
-          railway link $RAILWAY_PROJECT_ID
+          # railway link $RAILWAY_PROJECT_ID
           
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
           # railway up --service $RAILWAY_SERVICE_ID --project $RAILWAY_PROJECT_ID --detach
-          railway up --service $RAILWAY_SERVICE_ID  --detach
+          railway up --service $RAILWAY_SERVICE_ID --ci --detach
