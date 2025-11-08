@@ -43,7 +43,7 @@ jobs:
           # Use Railway token stored in GitHub repository secrets
           # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
-          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
           RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
 
         run: |
@@ -55,14 +55,14 @@ jobs:
           # railway login --token $RAILWAY_TOKEN
 
           # Authenticate using token via environment variable
-          export RAILWAY_TOKEN=$RAILWAY_TOKEN
+          # export RAILWAY_TOKEN=$RAILWAY_TOKEN
           
           # Added this line to confirm authentication - dropped as this requires 'railway login'
           # railway whoami
           
           # Link this deployment to your specific Railway project
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          railway link --project $RAILWAY_PROJECT_ID
+          # railway link --project $RAILWAY_PROJECT_ID
           
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
