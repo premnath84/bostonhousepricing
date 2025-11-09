@@ -75,4 +75,5 @@ jobs:
           # --detach flag runs the deployment without blocking
           # railway up --service $RAILWAY_SERVICE_ID --project $RAILWAY_PROJECT_ID --detach
           # railway up --service $RAILWAY_SERVICE_ID --ci --detach
-          railway up --service $RAILWAY_SERVICE_ID
+          # railway up --service $RAILWAY_SERVICE_ID
+          railway up --service=${{ env.RAILWAY_SERVICE_ID }}
