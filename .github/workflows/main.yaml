@@ -47,10 +47,18 @@ jobs:
         env:
           # Use Railway token stored in GitHub repository secrets
           # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
+          # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
           # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
           # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
-          RAILWAY_SERVICE_ID: d8e79597-637b-4156-9d82-34b18cb8aa10
+          # RAILWAY_SERVICE_ID: d8e79597-637b-4156-9d82-34b18cb8aa10
+
+          # RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
+          # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
+          RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_ENVIRONMENT_ID: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
+
 
         run: |
           # for debug - disable in production
@@ -77,4 +85,7 @@ jobs:
           # railway up --service $RAILWAY_SERVICE_ID --project $RAILWAY_PROJECT_ID --detach
           # railway up --service $RAILWAY_SERVICE_ID --ci --detach
           # railway up --service $RAILWAY_SERVICE_ID
-          railway up --service=${{ env.RAILWAY_SERVICE_ID }}
+          # railway up --service=${{ env.RAILWAY_SERVICE_ID }}
+
+          railway link --service=$RAILWAY_SERVICE_ID --project-id=$RAILWAY_PROJECT_ID --environment=$RAILWAY_ENVIRONMENT_ID
+          railway redeploy --yes
