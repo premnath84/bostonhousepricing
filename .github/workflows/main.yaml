@@ -87,5 +87,5 @@ jobs:
           # railway up --service $RAILWAY_SERVICE_ID
           # railway up --service=${{ env.RAILWAY_SERVICE_ID }}
 
-          railway link --service=$RAILWAY_SERVICE_ID --project-id=$RAILWAY_PROJECT_ID --environment=$RAILWAY_ENVIRONMENT_ID
+          railway link --service=$RAILWAY_SERVICE_ID --project_id=$RAILWAY_PROJECT_ID --environment=$RAILWAY_ENVIRONMENT_ID
           railway redeploy --yes
