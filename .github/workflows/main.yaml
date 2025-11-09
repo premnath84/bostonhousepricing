@@ -40,9 +40,7 @@ jobs:
         run: |
           npm install -g @railway/cli@latest
           railway --version  # Debug: confirm version
-      
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+
 
       # Step 5: Deploy the application to Railway
       - name: Deploy to Railway
@@ -55,9 +53,9 @@ jobs:
 
         run: |
           # for debug - disable in production
-          echo "Token: $RAILWAY_TOKEN"
+          # echo "Token: $RAILWAY_TOKEN"
           # echo "Project ID: $RAILWAY_PROJECT_ID"
-          echo "Service ID: $RAILWAY_SERVICE_ID"
+          # echo "Service ID: $RAILWAY_SERVICE_ID"
 
           # Authenticate with Railway using the API token
           # railway login --token $RAILWAY_TOKEN
@@ -72,14 +70,9 @@ jobs:
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           # railway link --project_id $RAILWAY_PROJECT_ID
           # railway link $RAILWAY_PROJECT_ID
-
-          # 1. Get the project ID from the token (auto-detects)
-          PROJECT_ID=$(railway project --json | jq -r '.id')
-          
-          # 2. Link the project (required for --service in CI)
-          railway link $PROJECT_ID
           
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
           # railway up --service $RAILWAY_SERVICE_ID --project $RAILWAY_PROJECT_ID --detach
-          railway up --service $RAILWAY_SERVICE_ID --ci --detach
+          # railway up --service $RAILWAY_SERVICE_ID --ci --detach
+          railway up --service=${{ secrets.RAILWAY_SERVICE_ID }}
