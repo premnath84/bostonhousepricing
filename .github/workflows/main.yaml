@@ -49,7 +49,8 @@ jobs:
           # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
           # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-          RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
+          # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
+          RAILWAY_SERVICE_ID: d8e79597-637b-4156-9d82-34b18cb8aa10
 
         run: |
           # for debug - disable in production
