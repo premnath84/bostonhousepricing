@@ -46,17 +46,27 @@ jobs:
       - name: Deploy to Railway
         env:
           # Use Railway token stored in GitHub repository secrets
+
+          # Project token
           # RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
-          # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-          # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
-          # RAILWAY_SERVICE_ID: d8e79597-637b-4156-9d82-34b18cb8aa10
 
+          # Account or Team Token
           # RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
           # RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_TOKEN_PROJECT2 }}
+
+          # Project ID
+          # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+
+
+          # Service ID
+          # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
+          # RAILWAY_SERVICE_ID: d8e79597-637b-4156-9d82-34b18cb8aa10    
           # RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
           RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_PROJECT2_SERVICE_ID }}
-          # RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+
+          # Environment ID
           # RAILWAY_ENVIRONMENT_ID: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
 
 
@@ -79,7 +89,11 @@ jobs:
           # railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           # railway link --project_id $RAILWAY_PROJECT_ID
           # railway link $RAILWAY_PROJECT_ID
+          # railway link --service=$RAILWAY_SERVICE_ID --project_id=$RAILWAY_PROJECT_ID --environment=$RAILWAY_ENVIRONMENT_ID
           
+          railway link --project $RAILWAY_PROJECT_ID
+
+
           # Deploy the application (Railway will use the Dockerfile)
           # --detach flag runs the deployment without blocking
           # railway up --service $RAILWAY_SERVICE_ID --project $RAILWAY_PROJECT_ID --detach
@@ -87,6 +101,9 @@ jobs:
           # railway up --service $RAILWAY_SERVICE_ID
           # railway up --service=${{ env.RAILWAY_SERVICE_ID }}
 
-          # railway link --service=$RAILWAY_SERVICE_ID --project_id=$RAILWAY_PROJECT_ID --environment=$RAILWAY_ENVIRONMENT_ID
+          railway up --service $RAILWAY_SERVICE_ID --detach
+
+          
           # railway redeploy --yes
-          railway redeploy --service $RAILWAY_SERVICE_ID --yes
+          # railway redeploy --service $RAILWAY_SERVICE_ID --yes
+          # railway up
